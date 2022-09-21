@@ -1,0 +1,17 @@
+<tr>
+    <th scope="row">Temperature</th>
+    <td>{{temperature}}°</td>
+    <td class="{% if temp_ok %} text-success {% else %} text-danger {% endif %}">{% if temp_ok %} NORMAL {% else %} OVER HEAT! {% endif %}</td>
+</tr>
+
+<tr>
+    <th scope="row">IP(local)</th>
+    <td>{{ip}}</td>
+    <td class="text-success">NORMAL</td>
+</tr>
+
+<tr>
+    <th scope="row">Hostname</th>
+    <td>{{hostname}}</td>
+    <td class="text-success">NORMAL</td>
+</tr>
