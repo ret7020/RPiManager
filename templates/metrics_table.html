@@ -4,6 +4,25 @@
     <td class="{% if temp_ok %} text-success {% else %} text-danger {% endif %}">{% if temp_ok %} NORMAL {% else %} OVER HEAT! {% endif %}</td>
 </tr>
 
+
+<tr>
+    <th scope="row">CPU Load</th>
+    <td>{{cpu_load}}%</td>
+    <td class="{% if cpu_load < 95 %} text-success {% else %} text-danger {% endif %}">{% if cpu_load < 95 %} NORMAL {% else %} OVER LOAD! {% endif %}</td>
+</tr>
+
+<tr>
+    <th scope="row">RAM Load</th>
+    <td>{{ram_load}}%</td>
+    <td class="{% if ram_load < 95 %} text-success {% else %} text-danger {% endif %}">{% if ram_load < 95 %} NORMAL {% else %} OVER LOAD! {% endif %}</td>
+</tr>
+
+<tr>
+    <th scope="row">SD load</th>
+    <td>{{sd_load}}%</td>
+    <td class="{% if sd_load < 95 %} text-success {% else %} text-danger {% endif %}">{% if sd_load < 95 %} NORMAL {% else %} OVER LOAD! {% endif %}</td>
+</tr>
+
 <tr>
     <th scope="row">IP(local)</th>
     <td>{{ip}}</td>
@@ -14,4 +33,10 @@
     <th scope="row">Hostname</th>
     <td>{{hostname}}</td>
     <td class="text-success">NORMAL</td>
+</tr>
+
+<tr>
+    <th scope="row">WiFi network</th>
+    <td>{{wifi_net_name}}</td>
+    <td class="text-success">{{wifi_net_status}}</td>
 </tr>
