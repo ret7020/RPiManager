@@ -22,7 +22,7 @@ class MonitorApp:
         self.app.run(host=self.host, port=self.port)
 
     def render_table(self, metrics_data):
-        return render_template("metrics_table.html", temperature=metrics_data["temperature"], temp_ok=10 <= metrics_data["temperature"] <= 75, ip=metrics_data["loc_ip"], hostname=metrics_data["hostname"], wifi_net_status=metrics_data["wifi_net_status"], wifi_net_name=metrics_data["wifi_net_name"], cpu_load=metrics_data["cpu_load"], ram_load=metrics_data["ram_load"], sd_load=metrics_data["sd_load"])
+        return render_template("metrics_table.html", temperature=metrics_data["temperature"], temp_ok=10 <= metrics_data["temperature"] <= 75, ip=metrics_data["loc_ip"], hostname=metrics_data["hostname"], wifi_net_status=metrics_data["wifi_net_status"], wifi_net_name=metrics_data["wifi_net_name"], cpu_load=metrics_data["cpu_load"], ram_load=metrics_data["ram_load"], sd_load=metrics_data["sd_load"], uptime=metrics_data["uptime"])
     def index(self):
         metrics_data = mtr.get_metrics()
         return render_template("index.html", table_data=self.render_table(metrics_data))

@@ -1,6 +1,7 @@
 import psutil
 import socket
 import subprocess
+from time import gmtime, strftime, time
 
 class Metrics:
     def __init__(self):
@@ -14,9 +15,11 @@ class Metrics:
         cpu_load = psutil.cpu_percent()
         ram_load = psutil.virtual_memory().percent
         sd_load = psutil.disk_usage('/').percent
+        seconds_from_boot = time() - psutil.boot_time()
+        uptime = strftime("%H:%M:%S", gmtime(seconds_from_boot))
 
         hostname = socket.gethostname()
-        subprocess_result = subprocess.Popen('iwgetid',shell=True,stdout=subprocess.PIPE)
+        subprocess_result = subprocess.Popen('iwget',shell=True,stdout=subprocess.PIPE)
         subprocess_output = subprocess_result.communicate()[0],subprocess_result.returncode
         wifi_data = subprocess_output[0].decode('utf-8')
         try:
@@ -26,4 +29,4 @@ class Metrics:
             wifi_net_name = "NONE"
             wifi_net_status = "NO WIFI"
 
-        return {"temperature": temperature, "cpu_load": cpu_load, "ram_load": ram_load, "sd_load": sd_load ,"loc_ip": self.local_ip, "hostname": hostname, "wifi_net_name": wifi_net_name, "wifi_net_status": wifi_net_status}
+        return {"temperature": temperature, "cpu_load": cpu_load, "ram_load": ram_load, "sd_load": sd_load ,"loc_ip": self.local_ip, "hostname": hostname, "wifi_net_name": wifi_net_name, "wifi_net_status": wifi_net_status, "uptime": uptime}
