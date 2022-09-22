@@ -1,7 +1,8 @@
 import psutil
 import socket
 import subprocess
-from time import gmtime, strftime, time
+from time import time
+from utils import convert_seconds_to_time_spent
 
 class Metrics:
     def __init__(self):
@@ -16,7 +17,7 @@ class Metrics:
         ram_load = psutil.virtual_memory().percent
         sd_load = psutil.disk_usage('/').percent
         seconds_from_boot = time() - psutil.boot_time()
-        uptime = strftime("%H:%M:%S", gmtime(seconds_from_boot))
+        uptime = convert_seconds_to_time_spent(seconds_from_boot)
 
         hostname = socket.gethostname()
         subprocess_result = subprocess.Popen('iwget',shell=True,stdout=subprocess.PIPE)

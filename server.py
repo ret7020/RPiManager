@@ -1,5 +1,16 @@
 from flask import Flask, render_template, jsonify
 from metrics import Metrics
+import cv2
+import threading
+from config import *
+
+cap = cv2.VideoCapture(CAMERA_IP)
+
+ret, IMG = cap.read()
+def loop():
+    global IMG
+    while True:
+        ret, IMG = cap.read()
 
 class MonitorApp:
     def __init__(self, name, host='0.0.0.0', port='8080'):
@@ -12,11 +23,18 @@ class MonitorApp:
         @self.app.route('/')
         def __index():
             return self.index()
+        
+        @self.app.route('/camera')
+        def __camera():
+            return self.cam()
 
         ## API route
         @self.app.route('/api/poll_metrics')
         def __polling():
             return self.polling()
+        
+        
+
 
     def run(self):
         self.app.run(host=self.host, port=self.port)
@@ -29,9 +47,15 @@ class MonitorApp:
     def polling(self):
         metrics_data = mtr.get_metrics()
         return {"status": True, "data": "metrics_data", "html_table": self.render_table(metrics_data)}
+    
+    def cam(self):
+        global IMG
+        cv2.imwrite("./static/images/frame.png", IMG)
+        return "<img src='/static/images/frame.png'>"
 
 
 if __name__ == "__main__":
+    threading.Thread(target=lambda: loop()).start()
     mtr = Metrics()
     app = MonitorApp(__name__)
     app.run()
