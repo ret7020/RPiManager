@@ -13,7 +13,7 @@ def loop():
         ret, IMG = cap.read()
 
 class MonitorApp:
-    def __init__(self, name, host='0.0.0.0', port='8080'):
+    def __init__(self, name, host='0.0.0.0', port='8000'):
         self.app = Flask(name)
         self.host = host
         self.port = port
@@ -50,7 +50,7 @@ class MonitorApp:
     
     def cam(self):
         global IMG
-        cv2.imwrite("./static/images/frame.png", IMG)
+        cv2.imwrite("/home/pi/Documents/Progs/RPiWebMonitor/static/images/frame.png", IMG)
         return "<img src='/static/images/frame.png'>"
 
 
